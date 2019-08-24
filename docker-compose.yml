@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+    nginx1.16:
+        image: nginx:1.16-alpine
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx1.16/nginx.conf:/etc/nginx/nginx.conf
+            - /d/projects:/projects
+        depends_on:
+            - php5.6
+    php5.6:
+        build: ./php5.6
+        image: php:5.6-cong
+        volumes:
+            - ./php5.6/php.ini:/usr/local/etc/php/php.ini
+            - /d/projects:/projects
+        depends_on:
+            - redis5.0
+    redis5.0:
+        build: ./redis5.0
+        image: redis:5.0-cong
